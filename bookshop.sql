@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 16, 2024 at 07:00 AM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.0.28
+-- Generation Time: Jul 16, 2024 at 07:41 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -42,6 +42,48 @@ CREATE TABLE `tbl_author` (
 INSERT INTO `tbl_author` (`authorid`, `name`, `password`, `email`, `image`) VALUES
 (4, 'author', 'wsx', 'author@gmail.com', 'th.jfif'),
 (5, 'yellow', 'wsx', 'yellow@gmail.com', 'stack-old-books-light-beige-background-copyspace-angle-view-96885880.webp');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_book`
+--
+
+CREATE TABLE `tbl_book` (
+  `bookid` int(10) NOT NULL,
+  `authorid` int(10) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `description` varchar(500) NOT NULL,
+  `categoryid` int(10) NOT NULL,
+  `image` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_book`
+--
+
+INSERT INTO `tbl_book` (`bookid`, `authorid`, `title`, `description`, `categoryid`, `image`) VALUES
+(9, 0, 'rose', 'rose', 1, 'rose.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_category`
+--
+
+CREATE TABLE `tbl_category` (
+  `categoryid` int(11) NOT NULL,
+  `categoryname` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_category`
+--
+
+INSERT INTO `tbl_category` (`categoryid`, `categoryname`) VALUES
+(1, 'Action'),
+(2, 'Comedy'),
+(3, 'Sci-fi');
 
 -- --------------------------------------------------------
 
@@ -100,6 +142,21 @@ ALTER TABLE `tbl_author`
   ADD UNIQUE KEY `email` (`email`);
 
 --
+-- Indexes for table `tbl_book`
+--
+ALTER TABLE `tbl_book`
+  ADD PRIMARY KEY (`bookid`),
+  ADD KEY `authorid` (`authorid`),
+  ADD KEY `categoryid` (`categoryid`);
+
+--
+-- Indexes for table `tbl_category`
+--
+ALTER TABLE `tbl_category`
+  ADD PRIMARY KEY (`categoryid`),
+  ADD UNIQUE KEY `categoryname` (`categoryname`);
+
+--
 -- Indexes for table `tbl_login`
 --
 ALTER TABLE `tbl_login`
@@ -122,6 +179,18 @@ ALTER TABLE `tbl_reader`
 --
 ALTER TABLE `tbl_author`
   MODIFY `authorid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `tbl_book`
+--
+ALTER TABLE `tbl_book`
+  MODIFY `bookid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `tbl_category`
+--
+ALTER TABLE `tbl_category`
+  MODIFY `categoryid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_login`
