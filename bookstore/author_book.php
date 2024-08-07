@@ -45,18 +45,28 @@
             <label for="image">choose cover:</label>
             <input type="file" id="image" name="image" accept="image/*" required>
         </div>
+        <div class="form-group">
+    <label for="book">Upload the Book (PDF only)</label>
+    <input type="file" id="book" name="book" accept="application/pdf" required>
+</div>
+
                <button type="submit" class="btn btn-primary" name="submit">Submit</button>
 </form>
 <?php
                      include('connection.php');
+                    
                      if (isset($_POST["submit"])){
                         $title = $_POST['title'];
                         $description = $_POST['description'];
                         $categoryid = $_POST['category'];
                         $image = $_FILES['image']['name'];
+                        $authorid=$_SESSION['authorid'];
+                        $bookfile=$_FILES['book']['name'];
                             // cover
                             move_uploaded_file($_FILES['image']['tmp_name'],'uploads/'.$image);
-                              $sql = "INSERT INTO tbl_book (title,description,categoryid,image) VALUES ('$title','$description','$categoryid','$image')";
+                            move_uploaded_file($_FILES['book']['tmp_name'],'uploads/'.$bookfile);
+                              $sql = "INSERT INTO tbl_book (title,description,categoryid,image,authorid,bookfile) VALUES 
+                              ('$title','$description','$categoryid','$image','$authorid','$bookfile')";
                             mysqli_query($conn, $sql);
                               echo '<script>alert("This Book added successfully.");</script>';
                           }

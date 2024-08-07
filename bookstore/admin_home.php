@@ -815,6 +815,9 @@
             <!--  maincontent -->
 <?php
 include("admin_category.php");
+include("admin_authorview.php");
+include("admin_readerview.php");
+include("admin_book.php");
 ?>
 
 

@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Admin-category</title>
+    <title>Admin-Book</title>
     <meta
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
       name="viewport"
@@ -44,43 +44,13 @@
   </head>
   <body>
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  + Add category
-</button>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add category</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <form action="" method="POST">
-  <div class="form-group">
-    <label for="category">category name</label>
-    <input type="text" class="form-control" id="category" name="categoryName" placeholder="Enter category name">
-  </div>
-  <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary" name="save">save</button>
-      </div>
-</form>
-      </div>
-      
-    </div>
-  </div>
-</div>
 
   <table class="table table-sm">
   <thead>
     <tr>
-      <th scope="col">category id</th>
-      <th scope="col">category name</th>
+      <th scope="col">Book id</th>
+      <th scope="col">Title</th>
       <th scope="col">Delete</th>
     </tr>
   </thead>
@@ -91,33 +61,16 @@
   <?php 
 
 include('connection.php');
-if (isset($_POST["save"])){
-  $categoryName = $_POST['categoryName'];
 
-$sql="SELECT * FROM tbl_category WHERE categoryname='$categoryName'";
-
-    $result=mysqli_query($conn,$sql);
-
-    if(mysqli_num_rows($result)>0){
-
-        echo '<script>alert("This category already exists.");</script>';
-    }
-    else{
-    
-        $sql = "INSERT INTO tbl_category (categoryname) VALUES ('$categoryName')";
-        mysqli_query($conn, $sql);
-        echo '<script>alert("This category added successfully.");</script>';
-    }
-  }
   // fetch
-    $sql = "SELECT * FROM tbl_category";
+    $sql = "SELECT * FROM tbl_book";
     $result = mysqli_query($conn, $sql);
   
     if ($result) {
      
 while ($row = mysqli_fetch_array($result)) {
-    echo "<tr><td>" . $row["categoryid"] . "</td><td>" . $row["categoryname"] . "</td>";
-    echo '<td><a href="deletecategory.php?id=' . $row['categoryid'] . '">Delete</a></td></tr>';
+    echo "<tr><td>" . $row["bookid"] . "</td><td>" . $row["title"] . "</td>";
+    echo '<td><a href="deletebook.php?id=' . $row['bookid'] . '">Delete</a></td></tr>';
 }
 
 

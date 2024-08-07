@@ -15,7 +15,7 @@ if (isset($_POST["login"])) {
         die("Connection failed: " . mysqli_connect_error());
     }
 
-    $sql = "SELECT * FROM tbl_login WHERE email='$email' AND Password='$password'";
+    $sql = "SELECT * FROM tbl_login WHERE username='$email' AND Password='$password'";
     $result = mysqli_query($conn, $sql);
 
     if ($result) {
@@ -23,21 +23,21 @@ if (isset($_POST["login"])) {
         if ($row) {
             if ($row["keyuser"] == "admin") {
                 $_SESSION['username'] = $email;
-                $_SESSION['name'] = 'author';
+                $_SESSION['name'] = 'admin';
                 echo '<script>window.location.href="admin_home.php";</script>';
                 exit();
             } elseif ($row["keyuser"] == "author") {
-                $_SESSION['autheremail'] = $email;
-                $sql = "SELECT * FROM tbl_auther WHERE email='$email'";
+                $_SESSION['authoremail'] = $email;
+                $sql = "SELECT * FROM tbl_author WHERE email='$email'";
                 $result = mysqli_query($conn, $sql);
                 if ($result) {
                     $row = mysqli_fetch_array($result);
-                    $_SESSION['autherid'] = $row["autherid"];
+                    $_SESSION['authorid'] = $row["authorid"];
                 }
-                echo '<script>window.location.href="auther_home.php";</script>';
+                echo '<script>window.location.href="author_home.php";</script>';
                 exit();
             } 
-        } elseif ($row["keyuser"] == "reader") {
+        elseif ($row["keyuser"] == "reader") {
             $_SESSION['readeremail'] = $email;
             $sql = "SELECT * FROM tbl_reader WHERE email='$email'";
             $result = mysqli_query($conn, $sql);
@@ -60,7 +60,7 @@ if (isset($_POST["login"])) {
         }
     } else {
         echo "Error: " . mysqli_error($conn);
-    }
+    }}
 
 ?>
 
@@ -72,7 +72,7 @@ if (isset($_POST["login"])) {
 <link rel="stylesheet" href="mainstyle/css/style.css">  
  <!-- font awesome cdn link  -->
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
- <title> reader_reg </title>
+ <title> Sign-in </title>
 <style>
    /*  body {
         font-family: Arial, sans-serif;
